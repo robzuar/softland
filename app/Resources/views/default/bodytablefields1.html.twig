@@ -1,0 +1,21 @@
+<td><a onclick="getInfo('day', {{ entity1.nomAux }});">{{ entity1.nomDch }}</a></td>
+<td>
+    {% if entity1.countTotal != 0 %}
+        {% set porcentajeOne = (entity1.countOne * 100)/ entity1.countTotal %}
+        {{ porcentajeOne |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {% if entity1.countTotal != 0 %}
+        {% set porcentajeZero = (entity1.countZero * 100)/ entity1.countTotal %}
+        {{ porcentajeZero |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {{ entity1.countTotal }}
+</td>
+

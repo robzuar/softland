@@ -1,0 +1,27 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'dispatch'|trans }}</strong></p>
+        <p>
+            {{ entity.dispatch }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'day'|trans }}</strong></p>
+        <p>
+            {{ entity.day }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'day'|trans }}</strong></p>
+        <p>
+            {{ entity.day }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}{{ 'senabled'|trans }}{% else %}{{ 'sdisabled'|trans }}{% endif %}
+        </p>
+    </div>
+</div>

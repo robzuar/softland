@@ -1,0 +1,59 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>Id</strong></p>
+        <p>
+            {{ entity.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Codaux</strong></p>
+        <p>
+            {{ entity.codAux }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Nofaux</strong></p>
+        <p>
+            {{ entity.noFAux }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Nomaux</strong></p>
+        <p>
+            {{ entity.nomAux }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Rutaux</strong></p>
+        <p>
+            {{ entity.rutAux }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Diraux</strong></p>
+        <p>
+            {{ entity.dirAux }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Enabled</strong></p>
+        <p>
+            {% if entity.enabled %}Yes{% else %}No{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>Createdat</strong></p>
+        <p>
+            {% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+</div>

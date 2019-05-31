@@ -1,0 +1,17 @@
+<form class="form-inline" action="{{ path(routes.form, { 'id': entity.id , 'form' : form}) }}" method="post" style="display: inline-block">
+    <label  for="vehicle">Seleccione Vehiculo</label>
+    <select  class="form-control" name="vehicle" id="vehicle" required>
+        <option value="">Seleccione Vehiculo</option>
+        {% for vehicle in vehicles %}
+            <option value="{{ vehicle.id }}">{{ vehicle.patent }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit" class="btn btn-inverse" name="status_action" value="complete"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completar</button>
+
+    <a class="btn btn-default" href="{{ path('app_bill_index') }}">
+        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+        Volver
+    </a>
+
+</form>
+<hr>

@@ -1,0 +1,7 @@
+<!--<th width="20px"><input type="checkbox" class="check-all" onclick="toggleAll(this)"></th>-->
+<th>{{macros.th_sortable('dispatch'|trans,'dispatch',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+<th>{{macros.th_sortable('region'|trans,'region',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+<th>{{macros.th_sortable('day'|trans,'day',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+<th>{{macros.th_sortable('nroute'|trans,'number',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+<th>{{macros.th_sortable('enabled'|trans,'enabled',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+    

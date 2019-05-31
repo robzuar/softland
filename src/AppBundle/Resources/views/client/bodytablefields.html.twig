@@ -1,0 +1,7 @@
+
+<!--<td><input type="checkbox" name="ids[]" onclick='bulkSubmitBtnManage();' class="check-all" value="{{entity.id}}"/></td>-->
+<td><a href="{{ path(routes.edit, { 'id': entity.id }) }}">{{ entity.codAux }}</a></td>
+<td>{{ entity.nomAux }}</td>
+<td>{{ entity.rutAux }}</td>
+<td>{{ entity.dirAux }}</td>
+<!--<td>{%- if entity.enabled %}{{ 'senabled'|trans }}{% else %}{{ 'sdisabled'|trans }}{% endif %}</td>-->

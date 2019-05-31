@@ -1,0 +1,49 @@
+
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <!-- button here -->
+                </div>
+                <h2 style="font-size: 14px" class="panel-title">{{ 'besttop5'|trans }} {{ 'day'|trans }}</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3 pull-left">
+
+                </div>
+                <!-- FLASH MESSAGE -->
+                <div class="col-md-12">
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class="alert alert-{{ type }}">
+                                {{ flashMessage|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <!-- END FLASH MESSAGE -->
+                <!-- BEGIN TABLE -->
+                <div class="table-responsive col-md-12">
+                    <table  class="table table-bordered table-responsive" cellspacing="0" cellpadding="0">
+                        <thead>
+                        <tr>
+                            {% include (':default:headtablefields.html.twig') %}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity1 in entities1 %}
+                            <tr>
+                                {% include (':default:bodytablefields1.html.twig') %}
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE -->
+
+            </div>
+        </div>
+    </div>
+</div>

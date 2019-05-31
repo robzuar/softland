@@ -1,0 +1,111 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'id'|trans }}</strong></p>
+        <p>
+            {{ entity.id }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'nroInt'|trans }}</strong></p>
+        <p>
+            {{ entity.nroInt }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'codProd'|trans }}</strong></p>
+        <p>
+            {{ entity.codProd }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'codAux'|trans }}</strong></p>
+        <p>
+            {{ entity.codAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'fecha'|trans }}</strong></p>
+        <p>
+            {% if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'linea'|trans }}</strong></p>
+        <p>
+            {{ entity.linea }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'detProd'|trans }}</strong></p>
+        <p>
+            {{ entity.detProd }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'codeUMed'|trans }}</strong></p>
+        <p>
+            {{ entity.codeUMed }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'cantFacturada'|trans }}</strong></p>
+        <p>
+            {{ entity.cantFacturada }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'preUniMB'|trans }}</strong></p>
+        <p>
+            {{ entity.preUniMB }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'cantFactUVta'|trans }}</strong></p>
+        <p>
+            {{ entity.cantFactUVta }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'totLinea'|trans }}</strong></p>
+        <p>
+            {{ entity.totLinea }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}Yes{% else %}No{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'nsValueControl'|trans }}</strong></p>
+        <p>
+            {{ entity.nsValueControl }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'percentageControl'|trans }}</strong></p>
+        <p>
+            {{ entity.percentageControl }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'nsValueComplaint'|trans }}</strong></p>
+        <p>
+            {{ entity.nsValueComplaint }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'percentageComplaint'|trans }}</strong></p>
+        <p>
+            {{ entity.percentageComplaint }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'createdAt'|trans }}</strong></p>
+        <p>
+            {% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+    </div>
+</div>

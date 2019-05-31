@@ -1,0 +1,66 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'receivedAt'|trans }}</strong></p>
+        <p>
+            {% if entity.receivedAt %}{{ entity.receivedAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'creditNote'|trans }}</strong></p>
+        <p>
+            {{ entity.creditNote }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'mount'|trans }}</strong></p>
+        <p>
+            {{ entity.mount }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'discount'|trans }}</strong></p>
+        <p>
+            {{ entity.discount }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}Yes{% else %}No{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'comment'|trans }}</strong></p>
+        <p>
+            {{ entity.comment }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'nsValue'|trans }}</strong></p>
+        <p>
+            {{ entity.nsValue }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'percentage'|trans }}</strong></p>
+        <p>
+            {{ entity.percentage }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'createdAt'|trans }}</strong></p>
+        <p>
+            {% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div>
+ </div>

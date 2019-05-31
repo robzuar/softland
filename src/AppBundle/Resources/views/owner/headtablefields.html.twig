@@ -1,0 +1,4 @@
+<!--<th width="20px"><input type="checkbox" class="check-all" onclick="toggleAll(this)"></th>-->
+<th>{{macros.th_sortable('name'|trans,'name',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+<th>{{macros.th_sortable('enabled'|trans,'enabled',app.request.get('pcg_sort_col'), app.request.get('pcg_sort_order') , routes.index)}}</th>
+

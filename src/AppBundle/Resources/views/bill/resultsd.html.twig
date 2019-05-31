@@ -1,0 +1,202 @@
+<div class="row">
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                </div>
+                <h2 style="font-size: 14px" class="panel-title">Detalle de {{ singular }}</h2>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-12">
+                                {% include ('@App/' ~ url|lower ~ '/fields.html.twig') %}
+                                <hr/>
+                                {% if entity.status == "pendiente" or entity.status == "revision" %}
+                                    {{ render(controller('AppBundle:Bill:form', { 'id':  entity.id , 'form' : 'detail'})) }}
+                                {% else %}
+                                    <a class="btn btn-default" href="{{ path('app_bill_index') }}">
+                                        <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                                        Volver
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {% for type, flashMessages in app.session.flashbag.all() %}
+                            {% for flashMessage in flashMessages %}
+                                <div class="alert alert-{{ type }}">
+                                    {{ flashMessage|raw }}
+                                </div>
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table id="table-entities" class="table table-bordered table-responsive">
+                            <thead>
+                            <tr>
+                                <th class="col-md-1">Estado</th>
+                                <th >Linea</th>
+                                <th class="col-md-1">Producto</th>
+                                <th class="col-md-3">Nombre</th>
+                                <th >Cantidad</th>
+                                <th class="col-md-4">Acción</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for detail in details %}
+                                <tr id="tr{{ detail.id }}">
+                                    <td class="details">{{ detail.status }}</td>
+                                    <td>{{ detail.linea }}</td>
+                                    <td>{{ detail.product }}</td>
+                                    <td>
+                                        Sin Nombres aún
+
+                                        {% if detail.nsValueControl is not null %}
+                                            {% if detail.percentageControl == 100 %}
+
+                                                 - Recepción: full
+
+                                            {% else %}
+
+                                               - Recepción: parcial
+                                            {% endif %}
+                                        {% else %}
+                                           - No Recepcionada
+                                        {% endif %}
+
+                                        {% if detail.nsValueComplaint is not null %}
+                                            - Devoúcion PostVenta
+                                        {% endif %}
+                                    </td>
+                                    <td>{{ detail.cantFacturada }}</td>
+                                    <td>
+                                        <div class="row"><div id="buttons" class="col-md-11"></div><div class="col-md-1">
+                                        {% if detail.nsValueControl is  null %}
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li class="dropdown navbar-user">
+                                                    <a style="color: black" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="fas fa-lg fa-fw m-r-10 fa-ellipsis-v"></i>
+                                                        <span> </span>
+                                                    </a>
+                                                    <ul class="dropdown-menu animated fadeInLeft">
+                                                        <li class="arrow"></li>
+                                                        <li>
+                                                            <a id="filterDiv{{ detail.id }}" onclick="javascript:newaction(this, 'reception')" data-id="{{ detail.id }}" class="btn btn-primary" data-toggle="collapse" data-target="#filterss{{ detail.id }}">
+                                                                Recepción
+                                                                <span class="caret"></span>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        {% else %}
+                                            <ul class="nav navbar-nav navbar-right">
+                                                <li class="dropdown navbar-user">
+                                                    <a style="color: black" href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                                        <i class="fas fa-lg fa-fw m-r-10 fa-ellipsis-v"></i>
+                                                        <span> </span>
+                                                    </a>
+                                                    <ul class="dropdown-menu animated fadeInLeft">
+                                                        <li class="arrow"></li>
+                                                        <li>
+                                                            <a id="filterDiv{{ detail.id }}" onclick="javascript:showaction(this, 'reception')" data-id="{{ detail.id }}" class="btn btn-info" data-toggle="collapse" data-target="#filterss{{ detail.id }}">
+                                                                Ver Recepción
+                                                            </a>
+                                                        </li>
+                                                        <li class="arrow"></li>
+                                                        {% if detail.nsValueComplaint is null %}
+                                                            <li>
+                                                                <a id="filterDiv{{ detail.id }}" onclick="javascript:newaction(this, 'complaint')" data-id="{{ detail.id }}" class="btn btn-primary" data-toggle="collapse" data-target="#filterss{{ detail.id }}">
+                                                                    Reclamo
+                                                                </a>
+                                                            </li>
+                                                        {% else %}
+                                                            <li>
+                                                                <a id="filterDiv{{ detail.id }}" onclick="javascript:showaction(this, 'complaint')" data-id="{{ detail.id }}" class="btn btn-info" data-toggle="collapse" data-target="#filterss{{ detail.id }}">
+                                                                    Ver Reclamo
+                                                                </a>
+                                                            </li>
+                                                        {% endif %}
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function newaction(val, type) {
+
+        var id = $(val).data('id');
+        var path ="";
+        //console.log(id);return false;
+        if (type === 'reception') {
+            path = '{{ path('app_bill_newdetailbillline',{ 'id': 'idValue'}) }}';
+        }else {
+            path = '{{ path('app_bill_newdetailcomplaint',{ 'id': 'idValue'}) }}';
+        }
+        path = path.replace('idValue', id);
+        $.ajax({
+            type: 'GET',
+            async: true,
+            url: path,
+            success: function(results) {
+                var divVal = '#filterss'+id;
+                //console.log(divVal);return false;
+                $(val).collapse();
+                $(divVal).html('').html(results);
+
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+
+    function showaction(val, type){
+        var id = $(val).data('id');
+        var path ="";
+        console.log(id);return false;
+        if (type === 'reception') {
+            path = '{{ path('app_billcontrol_show',{ 'id': 'idValue'}) }}';
+        }else {
+            path = '{{ path('app_complaint_show',{ 'id': 'idValue'}) }}';
+        }
+        path = path.replace('idValue', id);
+        $.ajax({
+            type: 'GET',
+            async: true,
+            url: path,
+            success: function(results) {
+                var divVal = '#filterss'+id;
+                //console.log(divVal);return false;
+                $(val).collapse();
+                $(divVal).html('').html(results);
+
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+</script>

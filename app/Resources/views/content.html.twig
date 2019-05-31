@@ -1,0 +1,57 @@
+<!-- begin #sidebar -->
+<div id="sidebar" class="sidebar">
+    <!-- begin sidebar scrollbar -->
+    <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <!-- end sidebar user -->
+        <!-- begin sidebar nav -->
+        <ul class="nav">
+            <li class="nav-header" style="font-size: medium">Menú</li>
+            <li><a href="{{ path('homepage') }}"><i class="fa fa-home"></i><span>  Inicio</span></a></li>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret pull-right"></b>
+                        <i class="fa fa-laptop"></i>
+                        <span>Configuración</span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li><a href="{{ path('app_usuario_index') }}"><i class="fa fa-users"></i><span>  Usuarios</span></a></li>
+                        <li><a href="{{ path('app_typecomplaint_index') }}"><i class="fa fa-exclamation-triangle"></i><span>  Tipo de Reclamos</span></a></li>
+                        <li><a href="{{ path('app_route_index') }}"><i class="fa fa-industry"></i><span>  Rutas</span></a></li>
+                        <li><a href="{{ path('app_owner_index') }}"><i class="fa fa-industry"></i><span>  Contratista</span></a></li>
+                        <li><a href="{{ path('app_vehicle_index') }}"><i class="fa fa-truck"></i><span>  Vehiculos</span></a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            <li><a href="{{ path('app_bill_index') }}"><i class="fa fa-dollar-sign"></i><span>  Factura</span></a></li>
+            <li class="has-sub">
+                <a href="javascript:;">
+                    <b class="caret pull-right"></b>
+                    <i class="fa fa-laptop"></i>
+                    <span>Informes</span>
+                </a>
+                <ul class="sub-menu">
+                    <li><a href="{{ path('app_default_ceco') }}"><i class="fa fa-users"></i><span>  Por Ceco</span></a></li>
+                    <li><a href="{{ path('app_default_client') }}"><i class="fa fa-users"></i><span>  Por Clientes</span></a></li>
+                    <li><a href="{{ path('app_default_patent') }}"><i class="fa fa-users"></i><span>  Por Patente</span></a></li>
+
+                </ul>
+            </li>
+            <!--<li><a href="{{ path('charts') }}"><i class="fa fa-chart-line"></i><span>  Informes</span></a></li> -->
+            <!-- begin sidebar minify button -->
+            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+            <!-- end sidebar minify button -->
+        </ul>
+        <!-- end sidebar nav -->
+    </div>
+    <!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>
+<!-- end #sidebar -->
+
+<!-- begin #content -->
+<div id="content" class="content">
+    {% block body %}{% endblock %}
+</div>
+<!-- end #content -->

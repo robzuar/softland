@@ -1,0 +1,21 @@
+<td><a onclick="getInfo('week', {{ entity4.nomDch }});">{{ entity4.nomDch }}</a></td>
+<td>
+    {% if entity4.countTotal != 0 %}
+        {% set porcentajeOne = (entity4.countOne * 100)/ entity4.countTotal %}
+        {{ porcentajeOne |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {% if entity4.countTotal != 0 %}
+        {% set porcentajeZero = (entity4.countZero * 100)/ entity4.countTotal %}
+        {{ porcentajeZero |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {{ entity4.countTotal }}
+</td>
+

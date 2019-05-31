@@ -1,0 +1,153 @@
+{% extends ':layaouts:blade.html.twig' %}
+{% block stylesheets %}
+    <link href="{{ asset('bundles/app/assets/back_to_the_future/BTTF.ttf') }}">
+    anklepants.ttf
+{% endblock %}
+{% block blade %}
+    {% embed('header.html.twig') %}
+    {% endembed %}
+    {% embed('content.html.twig') %}
+        {% block body %}
+            <h1 style = "font-family:johnny fever,serif;font-style:italic;font-size: 70px">
+                <center><strong>Reportes de Cecos</strong></center>
+            </h1>
+            <div id="results">
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-inverse">
+                            <div class="panel-heading">
+                                <div class="panel-heading-btn">
+                                    <!-- button here -->
+
+                                </div>
+                                <h2 style="font-size: 14px" class="panel-title">
+
+                                </h2>
+                            </div>
+                            <div class="panel-body">
+                                <form action="{{ path('app_default_form_report') }}">
+                                    <div class="col-md-3">
+                                        <input id="datebegin" name="datebegin" type="text" required placeholder="dd-mm-yyyy"  class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <input id="dateend" name="dateend" type="text" required placeholder="dd-mm-yyyy" class="form-control">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <button name="filter" value="ceco" type="submit" class="btn btn-default">Filtrar</button>
+                                    </div>
+                                </form>
+                                <br>
+                                <br>
+                                <br>
+                                <!-- FLASH MESSAGE -->
+                                <div class="col-md-12">
+                                    {% for type, flashMessages in app.session.flashbag.all() %}
+                                        {% for flashMessage in flashMessages %}
+                                            <div class="alert alert-{{ type }}">
+                                                {{ flashMessage|raw }}
+                                            </div>
+                                        {% endfor %}
+                                    {% endfor %}
+                                </div>
+                                <!-- END FLASH MESSAGE -->
+                                {% if begin is defined %}
+                                    <hr>
+                                    <center><h3 >Reporte desde {{ begin }} hasta {{ end }}</h3></center>
+                                    <hr>
+                                {% endif %}
+                                <!-- BEGIN TABLE -->
+                                <div class="table-responsive col-md-12">
+                                    <table id="table-entities" class="table table-bordered table-responsive" cellspacing="0" cellpadding="0">
+                                        <thead>
+                                        <tr>
+
+                                            <th>empresa</th>
+                                            <th>% +95%</th>
+                                            <th>% -95%</th>
+                                            <th>Total</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% set totalColumna = 0 %}
+                                        {% set One = 0 %}
+                                        {% set Zero = 0 %}
+                                        {% for entity in entities %}
+                                            <tr>
+                                                {% set totalColumna = totalColumna +1  %}
+                                                {% set porcentajeOne = 0  %}
+                                                {% set porcentajeZero = 0  %}
+
+                                                <td>{{ entity.nomDch }}</td>
+                                                <td>
+                                                    {% if entity.countTotal != 0 %}
+                                                        {% set porcentajeOne = (entity.countOne * 100)/ entity.countTotal %}
+                                                        {{ porcentajeOne |round }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {% if entity.countTotal != 0 %}
+                                                        {% set porcentajeZero = (entity.countZero * 100)/ entity.countTotal %}
+                                                        {{ porcentajeZero |round }}
+                                                    {% else %}
+                                                        0
+                                                    {% endif %}
+                                                </td>
+                                                <td>
+                                                    {{ entity.countTotal }}
+                                                </td>
+                                                {% set One  = One + entity.countOne %}
+                                                {% set Zero  = Zero + entity.countZero %}
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                        <tfoot>
+                                        <tr>
+                                            <td>Totales</td>
+                                            <td>{% if totalColumna != 0 %}{{ ((One*100)/totalColumna)|round }}{% else %}0{% endif %}%</td>
+                                            <td>{% if totalColumna != 0 %}{{ ((Zero*100)/totalColumna)|round }}{% else %}0{% endif %}%</td>
+                                            <td>{{  totalColumna }}</td>
+                                        </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                                <!-- END TABLE -->
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            $("#datebegin").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+            $("#dateend").datepicker({
+                dateFormat: "dd-mm-yy"
+            });
+            $('#table-entities').dataTable( {
+                    "dom": '<"pull-right"f><"pull-left"l>tip',
+                    "oLanguage": {
+                        "sUrl": sUrlDatatable
+                    },
+                    responsive: true,
+                    autoFill: true,
+                    colReorder: true,
+                    keys: true,
+                    rowReorder: true,
+                    select: true,
+                }
+            );
+        });
+
+    </script>
+{% endblock %}

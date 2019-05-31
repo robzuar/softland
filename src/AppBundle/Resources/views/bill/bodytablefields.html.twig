@@ -1,0 +1,10 @@
+<!--<td><input type="checkbox" name="ids[]" onclick='bulkSubmitBtnManage();' class="check-all" value="{{entity.id}}"/></td>-->
+<td><a href="{{ path(routes.edit, { 'id': entity.id }) }}">{{ entity.folio }}</a></td>
+<td>{%- if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
+<td>{{ entity.codAux }}</td>
+<td>{{ entity.client }}</td>
+<td>{{ entity.dispatch }}</td>
+<td>{{ entity.nsValue }}</td>
+<td>{{ entity.percentage }}</td>
+<td>{{ entity.status }}</td>
+

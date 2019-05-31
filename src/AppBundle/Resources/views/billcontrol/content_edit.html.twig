@@ -1,0 +1,40 @@
+{% extends 'macros/base_ajax3.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+        {{ form_start(edit_form) }}
+        {{ app_macros.app_style_form(edit_form) }}
+        <p>
+            <button type="submit" class="btn btn-primary">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Actualizar
+            </button>
+        </p>
+        {{ form_end(edit_form) }}
+        <hr/>
+        <div class="form-group">
+            <a class="btn btn-default" href="{{ path('app_bill_showdetail',{ 'id': entity.billLine.bill.id}) }}">
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                Volver al Listado
+            </a>
+           <!-- <form action="{{ path(routes.delete, { 'id': entity.id }) }}" method="post" style="display: inline-block">
+                <input type="hidden" name="_method" value="DELETE" />
+                {{ form_widget(delete_form) }}
+                <button class="btn btn-danger" type="submit" onclick="return confirm('Está seguro');">
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                    Eliminar
+                </button>
+            </form> -->
+        </div>
+    </div>
+{% endblock %}
+

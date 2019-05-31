@@ -1,0 +1,110 @@
+{% set idval = 0 %}
+<div class="row">
+    <div class="col-md-12">
+        <!-- begin panel -->
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                </div>
+                <h2 style="font-size: 14px" class="panel-title">Detalle de {{ singular }}</h2>
+            </div>
+            <div class="panel-body">
+                {% include ('@App/' ~ url|lower ~ '/fields.html.twig') %}
+                <div class="form-group">
+                    {% if entity.status == "pendiente" or entity.status == "revision" %}
+                        {{ render(controller('AppBundle:Bill:form', { 'id':  entity.id , 'form' : 'detail'})) }}
+                    {% else %}
+                        <a class="btn btn-default" href="{{ path('app_bill_index') }}">
+                            <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                            Volver
+                        </a>
+                    {% endif %}
+                </div>
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+                <!-- BEGIN TABLE -->
+                <div class="table-responsive col-md-12">
+                    <table  class="table table-bordered table-responsive" cellspacing="0" cellpadding="0">
+                        <thead>
+                        <tr>
+                            {% import ":macros:th_sortable.html.twig" as macros %}
+                            {% include ('@App/' ~ url|lower ~ '/detailheadtablefields.html.twig') %}
+                            <th width = "130px">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for detail in details %}
+                                {% include ('@App/' ~ url|lower ~ '/detailbodytablefields.html.twig') %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE -->
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script>
+    function newaction(val, type) {
+
+        var id = $(val).data('id');
+        var path ="";
+        //console.log(id);return false;
+        if (type === 'reception') {
+            path = '{{ path('app_bill_newdetailbillline',{ 'id': 'idValue'}) }}';
+        }else {
+            path = '{{ path('app_bill_newdetailcomplaint',{ 'id': 'idValue'}) }}';
+        }
+        path = path.replace('idValue', id);
+        $.ajax({
+            type: 'GET',
+            async: true,
+            url: path,
+            success: function(results) {
+                var divVal = '#filterss'+id;
+                //console.log(divVal);return false;
+                $(val).collapse();
+                $(divVal).html('').html(results);
+
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+
+    function showaction(val, type){
+        var id = $(val).data('id');
+        var path ="";
+
+        if (type === 'reception') {
+            path = '{{ path('app_billcontrol_show',{ 'id': 'idValue'}) }}';
+        }else {
+            path = '{{ path('app_complaint_show',{ 'id': 'idValue'}) }}';
+        }
+        path = path.replace('idValue', id);
+        //console.log(path);return false;
+        $.ajax({
+            type: 'GET',
+            async: true,
+            url: path,
+            success: function(results) {
+                //console.log(results);return false;
+                var divVal = '#filterss'+id;
+                //console.log(divVal);return false;
+                $(val).collapse();
+                $(divVal).html('').html(results);
+
+            },
+            error: function(e){
+                console.log(e);
+            }
+        });
+    }
+</script>

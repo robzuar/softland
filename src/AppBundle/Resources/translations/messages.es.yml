@@ -1,0 +1,74 @@
+checker: Revisor
+assistent: Responsable
+code: Codigo
+id: Id
+codAux: Codigo
+codaux: Codigo
+nofaux: NO se aun
+nofAux: NO se aun
+nomaux: Nombre
+nomAux: Nombre
+rutaux: Rut
+rutAux: Rut
+diraux: Dirección
+dirAux: Dirección
+enabled: Estado
+Enabled: Estado
+createdat: Fecha creación
+createdAt: Fecha creación
+createdby: Creado por
+createdBy: Creado por
+yes: Activo
+no: No Activo
+please_choose: Seleccione una opción
+patent: Patente
+firstName: Nombres
+lastName: Apellidos
+name: Nombre
+description: Descripción
+route: Ruta
+routeAlt: Ruta Alternativa
+address: dirección
+client: Cliente
+day: Día
+receivedAt: Recibido
+creditNote: Nota de Credito
+mount: Monto
+discount: Descuento
+comment: Comentarios
+nsValue: NS
+percentage: %
+nroInt: Numero
+codProd: Codigo
+fecha: Fecha
+linea: Linea
+detProd: Producto
+codeUMed: Medida
+cantFacturada: Cantidad
+preUniMB: Precio Unidad
+cantFactUVta: Cantidad
+totLinea: Total
+nsValueControl: NS Control
+percentageControl: Porc. Control
+nsValueComplaint: NS Reclamo
+percentageComplaint: Porc. Reclamo
+codLugarDesp: Dirección Despacho
+glosa: Glosa
+nvNumero: Nota de Venta
+folio: Folio
+dispatch: CECO
+status: Estado
+senabled: Activo
+sdisabled: No Activo
+username: Usuario
+region: Región
+nroute: N°RUTA
+owner: Contratista
+besttop5: Mejor Top 5
+worsttop5: Peor Top 5
+week: Semana
+month: Mes
+isdiscount: Tiene Descuento
+isDiscount: Tiene Descuento?
+nisdiscount: No Tiene Descuento
+

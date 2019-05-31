@@ -1,0 +1,31 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'firstName'|trans }}</strong></p>
+        <p>
+            {{ entity.firstName }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'lastName'|trans }}</strong></p>
+        <p>
+            {{ entity.lastName }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'username'|trans }}</strong></p>
+        <p>
+            {{ entity.username }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {%- if entity.enabled %}{{ 'senabled'|trans }}{% else %}{{ 'sdisabled'|trans }}{% endif %}
+        </p>
+
+    </div>
+</div>

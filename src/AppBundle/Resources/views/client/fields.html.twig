@@ -1,0 +1,50 @@
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'Id'|trans }}</strong></p>
+        <p>
+            {{ entity.id }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'code'|trans }}</strong></p>
+        <p>
+            {{ entity.codAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Nofaux'|trans }}</strong></p>
+        <p>
+            {{ entity.noFAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Nomaux'|trans }}</strong></p>
+        <p>
+            {{ entity.nomAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Rutaux'|trans }}</strong></p>
+        <p>
+            {{ entity.rutAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Diraux'|trans }}</strong></p>
+        <p>
+            {{ entity.dirAux }}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}{{ 'YES'|trans }}{% else %}{{ 'NO'|trans }}{% endif %}
+        </p>
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'Createdat'|trans }}</strong></p>
+        <p>
+            {% if entity.createdAt %}{{ entity.createdAt|date('d-m-Y') }}{% endif %}
+        </p>
+    </div>
+</div>

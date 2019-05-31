@@ -1,0 +1,30 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'Id'|trans }}</strong></p>
+        <p>
+            {{ entity.id }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'name'|trans }}</strong></p>
+        <p>
+            {{ entity.name }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}Yes{% else %}No{% endif %}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'createdAt'|trans }}</strong></p>
+        <p>
+            {% if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}
+        </p>
+
+    </div></div>

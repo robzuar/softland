@@ -1,0 +1,9 @@
+<!--<td><input type="checkbox" name="ids[]" onclick='bulkSubmitBtnManage();' class="check-all" value="{{entity.id}}"/></td>-->
+<td><a href="{{ path(routes.edit, { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+<td>{%- if entity.receivedAt %}{{ entity.receivedAt|date('Y-m-d') }}{% endif %}</td>
+<td>{{ entity.creditNote }}</td>
+<td>{{ entity.mount }}</td>
+<td>{{ entity.discount }}</td>
+<td>{{ entity.comment }}</td>
+<td>{{ entity.nsValue }}</td>
+<td>{{ entity.percentage }}</td>

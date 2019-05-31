@@ -1,0 +1,32 @@
+<!-- begin #sidebar -->
+<div id="sidebar" class="sidebar">
+    <!-- begin sidebar scrollbar -->
+    <div data-scrollbar="true" data-height="100%">
+        <!-- begin sidebar user -->
+        <!-- end sidebar user -->
+        <!-- begin sidebar nav -->
+        <ul id="menu" class="nav">
+            <li class="nav-header" style="font-size: medium"> Menú</li>
+            <li><a id="menuinicio" href="{{ path('homepage') }}"><i class="ion-easel"></i>  Inicio</a></li>
+            {% if is_granted('ROLE_SUPER_ADMIN') %}
+                <li class="has-sub">
+                    <a href="javascript:;">
+                        <b class="caret pull-right"></b>
+                        <i class="ion-gear-b"></i>
+                        <span> Configuración</span>
+                    </a>
+                    <ul class="menuintrosub sub-menu">
+                        <li><a class="introsubmenu" id="menuusuarios" href="{{ path('app_usuario_index') }}"><i class="ion-person-stalker"></i><span>  Usuarios</span></a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            <!-- begin sidebar minify button -->
+            <li><a href="javascript:;" class="sidebar-minify-btn" data-click="sidebar-minify"><i class="fa fa-angle-double-left"></i></a></li>
+            <!-- end sidebar minify button -->
+        </ul>
+        <!-- end sidebar nav -->
+    </div>
+    <!-- end sidebar scrollbar -->
+</div>
+<div class="sidebar-bg"></div>
+<!-- end #sidebar -->

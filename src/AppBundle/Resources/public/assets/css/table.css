@@ -1,0 +1,8 @@
+@charset "UTF-8";
+td.details-control {
+    background: url("../../../web/bundles/app/assets/img/details_close.png") no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url("../../../web/bundles/app/assets/img/details_open.png") no-repeat center center;
+}

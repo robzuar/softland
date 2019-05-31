@@ -1,0 +1,22 @@
+
+<td><a onclick="getInfo('month', {{ entity6.nomDch }});">{{ entity6.nomDch }}</td>
+<td>
+    {% if entity6.countTotal != 0 %}
+        {% set porcentajeOne = (entity6.countOne * 100)/ entity6.countTotal %}
+        {{ porcentajeOne |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {% if entity6.countTotal != 0 %}
+        {% set porcentajeZero = (entity6.countZero * 100)/ entity6.countTotal %}
+        {{ porcentajeZero |round }}
+    {% else %}
+        0
+    {% endif %}
+</td>
+<td>
+    {{ entity6.countTotal }}
+</td>
+

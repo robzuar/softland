@@ -1,0 +1,70 @@
+{% macro errors_for(field) -%}
+    {% if not field.vars.valid %}
+        <div class="alert alert-danger form-error" role="alert">
+            <ul class="list-unstyled">
+                {% for error in field.vars.errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+{%- endmacro %}
+
+{% macro form_group_classes(field, extra_class) -%}
+    {%- if field.vars.submitted -%}
+        {%- if field.vars.valid -%}
+            {% set field_classes='has-success' %}
+        {%- else -%}
+            {% set field_classes='has-error' %}
+        {%- endif -%}
+    {%- endif -%}
+
+    form-group {{ field_classes | default('') }} {{ extra_class | default('') }}
+{%- endmacro %}
+
+{% macro form_group_feedback_icon(field) -%}
+    {% if field.vars.submitted %}
+        {% if field.vars.valid %}
+            <span class="glyphicon glyphicon-ok form-control-feedback"></span>
+        {% else %}
+            <span class="glyphicon glyphicon-remove form-control-feedback"></span>
+        {% endif %}
+    {% endif %}
+{%- endmacro %}
+
+{% macro input(field, field_label, field_placeholder, field_type) -%}
+    {% import _self as macros %}
+
+    <div class="{{ macros.form_group_classes(field, 'has-feedback') }}">
+        <label for="name" class="col-sm-2">{{ field_label }}</label>
+        <div class="col-sm-6">
+            <div>
+                <input type="{{ field_type | default('text') }}"
+                       class="form-control"
+                       id="{{ field.vars.id }}"
+                       name="{{ field.vars.full_name }}"
+                       placeholder="{{ field_placeholder }}"
+                       value="{{ field.vars.value | e }}">
+                {{ macros.form_group_feedback_icon(field) }}
+            </div>
+            {{ macros.errors_for(field) }}
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro text_area(field, field_label, field_placeholder) -%}
+    {% import _self as macros %}
+
+    <div class="{{ macros.form_group_classes(field) }}">
+        <label for="name" class="col-sm-2">{{ field_label }}</label>
+        <div class="col-sm-6">
+            <div>
+                <textarea class="form-control"
+                          id="{{ field.vars.id }}"
+                          name="{{ field.vars.full_name }}"
+                          placeholder="{{ field_placeholder }}">{{ field.vars.value | e }}</textarea>
+            </div>
+            {{ macros.errors_for(field) }}
+        </div>
+    </div>
+{%- endmacro %}

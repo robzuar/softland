@@ -1,0 +1,29 @@
+{% extends 'macros/base_ajax_new.html.twig' %}
+{% block body %}
+    <div class="row">
+        <div class="row">
+            <div class="col-md-12">
+                {% for type, flashMessages in app.session.flashbag.all() %}
+                    {% for flashMessage in flashMessages %}
+                        <div class="alert alert-{{ type }}">
+                            {{ flashMessage|raw }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+        </div>
+
+        {{ form_start(form, {'method': 'post', 'action': path('app_bill_newdetailbillline', { 'id' : id}), 'attr': {'class': 'form-inline'}}) }}
+        {{ app_macros.app_style_form(form) }}
+        <p>
+            <button type="submit" name="submit" value="save" class="btn btn-primary">
+                Guardar <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span>
+            </button>
+            <a class="btn btn-default" href="{{ path(routes.index) }}">
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                Volver
+            </a>
+        </p>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

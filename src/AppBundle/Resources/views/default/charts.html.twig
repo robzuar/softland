@@ -1,0 +1,196 @@
+{% extends ':layaouts:blade.html.twig' %}
+{% block blade %}
+    {% embed('header.html.twig') %}
+    {% endembed %}
+    {% embed('content.html.twig') %}
+        {% block body %}
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-inverse" data-sortable-id="form-plugins-1">
+                        <!-- begin panel-heading -->
+                        <div class="panel-heading">
+                            <div class="panel-heading-btn">
+
+                            </div>
+                            <h4 class="panel-title">Informes</h4>
+                        </div>
+                        <!-- end panel-heading -->
+                        <!-- begin panel-body -->
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <form class="form-horizontal form-bordered" action="{{ path('charts') }}" method="post">
+                                    <br>
+                                    <div class="form-group row">
+                                        <label for="advance-daterange" class="col-md-2 col-form-label">Seleccione Rango de Fechas</label>
+                                        <div class="col-md-4">
+                                            <input type='text' id="advance-daterange" name="advance-daterange" class="btn btn-default btn-block text-left f-s-12"><i class="fa fa-caret-down pull-right m-t-2"></i>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label  for="client">Seleccione Cliente</label>
+                                            <select  class="form-control" name="client" id="client">
+                                                <option value="">Seleccione Cliente</option>
+                                                {% for client in clients %}
+                                                    <option value="{{ client.id }}">{{ client }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label  for="route">Seleccione Ruta</label>
+                                            <select  class="form-control" name="route" id="route" >
+                                                <option value="">Seleccione Ruta</option>
+                                                {% for route in routes %}
+                                                    <option value="{{ route.id }}">{{ route }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-6">
+                                            <label  for="vehicle">Seleccione Vehiculo</label>
+                                            <select  class="form-control" name="vehicle" id="vehicle" >
+                                                <option value="">Seleccione Vehiculo</option>
+                                                {% for vehicle in vehicles %}
+                                                    <option value="{{ vehicle.id }}">{{ vehicle }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn btn-inverse" name="status_action" value="complete"> <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Completar</button>
+
+                                            <a class="btn btn-default" href="{{ path('app_bill_index') }}">
+                                                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+                                                Volver
+                                            </a>
+                                        </div>
+                                    </div>
+                                    </form>
+                                </div>
+                            </div>
+
+                        </div>
+                        <br>
+                        {% if details is defined %}
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-10 offset1">
+
+                                    <table id="table-entities" class="table table-bordered table-responsive">
+                                        <thead>
+                                        <tr>
+                                            <th class="col-md-1">Estado</th>
+                                            <th class="col-md-1">Folio</th>
+                                            <th class="col-md-1">Cliente</th>
+
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        {% for detail in details %}
+                                            <tr>
+                                                <td>{{ detail.status }}</td>
+                                                <td>{{ detail.folio }}</td>
+                                                <td>{{ detail.client }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        {% endif %}
+                        {% if piechart is defined %}
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <div id="div_chart"></div>
+
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+{% block javascripts %}
+
+    <script src="{{ asset('bundles/app/assets/plugins/bootstrap-daterangepicker/moment.js') }}"></script>
+    <script src="{{ asset('bundles/app/assets/plugins/moment/es.js') }}"></script>
+    <script src="{{ asset('bundles/app/assets/plugins/bootstrap-daterangepicker/daterangepicker.js') }}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        {% if piechart is defined %}
+        loadtable('table-entities');
+        {{ gc_draw(piechart, 'div_chart') }}
+        {% endif %}
+    </script>
+    <script>
+        $('document').ready(function(){
+            $('#vehicle').on('change', function(){
+               $('#route').val('');
+               $('#client').val('');
+            });
+            $('#route').on('change', function(){
+                $('#vehicle').val('');
+                $('#client').val('');
+            });
+            $('#client').on('change', function(){
+                $('#route').val('');
+                $('#vehicle').val('');
+            });
+
+            $('#advance-daterange span').html(moment().subtract('days', 29).format('D MMMM, YYYY') + ' - ' + moment().format('D MMMM, YYYY'));
+
+            $('#advance-daterange').daterangepicker({
+                alwaysShowCalendars: true,
+                linkedCalendars: false,
+                format: 'MM/DD/YYYY',
+                startDate: moment().subtract(29, 'days'),
+                endDate: moment(),
+                minDate: '01/01/2000',
+                maxDate: '12/31/2030',
+                showDropdowns: true,
+                showWeekNumbers: true,
+                timePickerIncrement: 1,
+                timePicker12Hour: true,
+                ranges: {
+                    'Hoy': [moment(), moment()],
+                    'Ayer': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                    '7 dias atras': [moment().subtract(6, 'days'), moment()],
+                    'ultimos 30 dias': [moment().subtract(29, 'days'), moment()],
+                    'Mes Actual': [moment().startOf('month'), moment().endOf('month')],
+                    'Mes Anterior': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                },
+                opens: 'right',
+                drops: 'down',
+                buttonClasses: ['btn', 'btn-sm'],
+                applyClass: 'btn-primary',
+                cancelClass: 'btn-default',
+                separator: ' to ',
+                locale: {
+                    applyLabel: 'Seleccionar',
+                    cancelLabel: 'Cancelar',
+                    fromLabel: 'From',
+                    toLabel: 'To',
+                    customRangeLabel: 'Selección',
+                    days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+                    daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+                    daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+                    months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+                    monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                    today: "Hoy",
+                    firstDay: 1
+                }
+            }, function(start, end, label) {
+                $('#advance-daterange span').html(start.format('D MMMM, YYYY') + ' - ' + end.format('D MMMM, YYYY'));
+            });
+        });
+    </script>
+{% endblock %}

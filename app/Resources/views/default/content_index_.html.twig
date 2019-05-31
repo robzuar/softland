@@ -1,0 +1,51 @@
+
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <!-- button here -->
+                </div>
+                <h2 style="font-size: 14px" class="panel-title"> Valores correspondientes al mes en curso</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3 pull-left">
+
+                </div>
+                <!-- FLASH MESSAGE -->
+                <div class="col-md-12">
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class="alert alert-{{ type }}">
+                                {{ flashMessage|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <!-- END FLASH MESSAGE -->
+                <!-- BEGIN TABLE -->
+                <div class="table-responsive col-md-12">
+                    <table  class="table table-bordered table-responsive" cellspacing="0" cellpadding="0">
+                        <thead>
+                        <tr>
+                           <td>Facturas Emitidas</td>
+                            <td>Facturas Procesadas</td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                <td>{{ entity.countTotal }}</td>
+                                <td>{{ entity.countZero + entity.countOne }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE -->
+
+            </div>
+        </div>
+    </div>
+</div>

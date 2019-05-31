@@ -1,0 +1,18 @@
+<!--<td><input type="checkbox" name="ids[]" onclick='bulkSubmitBtnManage();' class="check-all" value="{{entity.id}}"/></td>-->
+<td><a href="{{ path(routes.edit, { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+<td>{{ entity.codProd }}</td>
+<td>{{ entity.codAux }}</td>
+<td>{%- if entity.fecha %}{{ entity.fecha|date('Y-m-d') }}{% endif %}</td>
+<td>{{ entity.linea }}</td>
+<td>{{ entity.detProd }}</td>
+<td>{{ entity.codeUMed }}</td>
+<td>{{ entity.cantFacturada }}</td>
+<td>{{ entity.preUniMB }}</td>
+<td>{{ entity.cantFactUVta }}</td>
+<td>{{ entity.totLinea }}</td>
+<td>{%- if entity.enabled %}{{ 'senabled'|trans }}{% else %}{{ 'sdisabled'|trans }}{% endif %}</td>
+<td>{{ entity.nsValueControl }}</td>
+<td>{{ entity.percentageControl }}</td>
+<td>{{ entity.nsValueComplaint }}</td>
+<td>{{ entity.percentageComplaint }}</td>
+<td>{%- if entity.createdAt %}{{ entity.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>

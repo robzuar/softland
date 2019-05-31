@@ -1,0 +1,100 @@
+
+<hr>
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-inverse">
+            <div class="panel-heading">
+                <div class="panel-heading-btn">
+                    <a href="{{ path(routes.new) }}" class="btn btn-medium btn-icon btn-circle btn-white"><i class="fa fa-2x fa-plus-circle"></i></a>
+                </div>
+                <h2 style="font-size: 14px" class="panel-title">Listado de {{ plural }}</h2>
+            </div>
+            <div class="panel-body">
+                <div class="col-md-3 pull-left">
+                    <!-- PAGE SIZE -->
+                    <div class="pagination form-inline ">
+                        <select class = "form-control"  onchange="window.location = this.value" >
+                            <option value='{{ path( routes.index, app.request.query.all|merge({'pcg_show': '10'})) }}' {% if app.request.get('pcg_show') == 10 %} selected {% endif %}>10</option>
+                            <option value='{{ path( routes.index, app.request.query.all|merge({'pcg_show': '20'})) }}' {% if app.request.get('pcg_show') == 20 %} selected {% endif %}>20</option>
+                            <option value='{{ path( routes.index, app.request.query.all|merge({'pcg_show': '50'})) }}' {% if app.request.get('pcg_show') == 50 %} selected {% endif %}>50</option>
+                            <option value='{{ path( routes.index, app.request.query.all|merge({'pcg_show': '100'})) }}' {% if app.request.get('pcg_show') == 100 %} selected {% endif %}>100</option>
+                            <option value='{{ path( routes.index, app.request.query.all|merge({'pcg_show': '500'})) }}' {% if app.request.get('pcg_show') == 500 %} selected {% endif %}>500</option>
+                        </select>
+                    </div>
+                    <!-- END PAGE SIZE -->
+                </div>
+                <!-- FILTERING -->
+                <div class="col-md-6">
+                    <form action="{{ path(routes.index) }}" method="get" >
+                        <div class="input-group h3">
+                            {{form_widget(filterForm.search, { 'attr': {'class': 'form-control'} })}}
+                            {{form_rest(filterForm) }}
+                            <span class="input-group-btn">
+                                <button class="btn btn-primary" type="submit">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12">
+                    {%- if form_errors(filterForm) %}
+                        <div class="alert alert-block alert-error fade in form-errors">
+                            {{ form_errors(filterForm) }}
+                        </div>
+                    {% endif %}
+                </div>
+                <!-- END FILTERING -->
+                <!-- FLASH MESSAGE -->
+                <div class="col-md-12">
+                    {% for type, flashMessages in app.session.flashbag.all() %}
+                        {% for flashMessage in flashMessages %}
+                            <div class="alert alert-{{ type }}">
+                                {{ flashMessage|raw }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
+                <!-- END FLASH MESSAGE -->
+                <!-- BEGIN TABLE -->
+                <div class="table-responsive col-md-12">
+                    <table  class="table table-bordered table-responsive" cellspacing="0" cellpadding="0">
+                        <thead>
+                        <tr>
+                            {% import ":macros:th_sortable.html.twig" as macros %}
+                            {% include ('@App/' ~ url|lower ~ '/headtablefields.html.twig') %}
+                            <th width = "130px">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for entity in entities %}
+                            <tr>
+                                {% include ('@App/' ~ url|lower ~ '/bodytablefields.html.twig') %}
+                                <td class="actions">
+                                    <a title='Show' class="btn btn-info btn-sm" href="{{ path(routes.show, { 'id': entity.id }) }}">
+                                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <!-- END TABLE -->
+                <!-- BEGIN TABLE FOOTER -->
+                <div class="row">
+                    <div class="col-md-4 pull-left">
+
+                    </div>
+                    <div class='col-md-3 pagination text-center'>
+                        <p>{{totalOfRecordsString}}</p>
+                    </div>
+                    <div class="col-md-5 text-right">
+                        {{ pagerHtml|raw }}
+                    </div>
+                </div>
+                <!-- END TABLE FOOTER -->
+            </div>
+        </div>
+    </div>
+</div>

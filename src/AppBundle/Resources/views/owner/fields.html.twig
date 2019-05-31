@@ -1,0 +1,17 @@
+
+<div class="row">
+    <div class="col-md-6">
+        <p><strong>{{ 'name'|trans }}</strong></p>
+        <p>
+            {{ entity.name }}
+        </p>
+
+    </div>
+    <div class="col-md-6">
+        <p><strong>{{ 'enabled'|trans }}</strong></p>
+        <p>
+            {% if entity.enabled %}{{ 'senabled'|trans }}{% else %}{{ 'sdisabled'|trans }}{% endif %}
+        </p>
+
+    </div>
+</div>

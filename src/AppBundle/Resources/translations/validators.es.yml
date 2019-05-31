@@ -1,0 +1,4 @@
+
+# validators.es.yml
+not_blank: Este campo no puede estar vacío.
+date.format: d/m/Y

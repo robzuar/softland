@@ -1,0 +1,119 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: es
+    address: "%mailer_user%"
+    sendemail: true
+    upload_directory: '%kernel.root_dir%/../web/upload'
+    image_pdf: '%kernel.root_dir%/../web/upload/pdf.png'
+    upload_directory_cache: '%kernel.root_dir%/../web/upload/cache'
+    upload_directory_pdf: '%kernel.root_dir%/../web/upload/cache/pdf'
+    directorio_principal: '%kernel.root_dir%/../web/media/upload'
+    app.roles :
+        ROLE_SUPER_ADMIN : "ROLE_SUPER_ADMIN"
+        ROLE_ADMIN: "ROLE_ADMIN"
+        ROLE_USER : "ROLE_USER"
+    formats:              []
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
+    router:
+        resource: '%kernel.project_dir%/app/config/routing.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    globals:
+        upload_directory: '%directorio_principal%'
+        system_name: '%system_name%'
+        system_fullname: '%system_fullname%'
+        correosoporte: 'soporte@soporte.cl'
+        company_name: '%company_name%'
+        company_fullname: '%company_fullname%'
+        form_themes:
+            - 'bootstrap_3_layout.html.twig'
+            - 'LexikFormFilterBundle:Form:form_div_layout.html.twig'
+# Doctrine Configuration
+doctrine:
+    dbal:
+        default_connection:  default
+        connections:
+            default:
+                driver: '%database_driver%'
+                host: '%database_host%'
+                port: '%database_port%'
+                dbname: '%database_name%'
+                user: '%database_user%'
+                password: '%database_password%'
+
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        default_entity_manager: default
+        entity_managers:
+            # Register which bundle should use which connection
+            default:
+                naming_strategy: doctrine.orm.naming_strategy.underscore
+                connection: default
+                auto_mapping: true
+                mappings:
+                    AppBundle:  ~
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    spool: { type: memory }
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb' and 'couchdb'
+    firewall_name: main
+    user_class: AppBundle\Entity\Usuario
+    from_email:
+        address: '%mailer_user%'
+        sender_name: '%company_system%'
+    resetting:
+        retry_ttl: 7200 # Value in seconds, logic will use as hours
+        token_ttl: 86400
+        email:
+            from_email: # Use this node only if you don't want the global email address for the resetting email
+                address: '%mailer_user%'
+                sender_name: '%company_system%'
+            template:   '@FOSUser/Resetting/email.txt.twig'
+    change_password:
+        form:
+            type: app_usuario_change_password
+            name: app_usuario_change_password
+    service:
+        mailer:                 fos_user.mailer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
+        token_generator:        fos_user.util.token_generator.default
+        user_manager:           fos_user.user_manager.default

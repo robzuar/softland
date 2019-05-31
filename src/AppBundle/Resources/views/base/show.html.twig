@@ -1,0 +1,25 @@
+{% extends ':layaouts:blade.html.twig' %}
+{% block blade %}
+    {% embed('header.html.twig') %}
+    {% endembed %}
+    {% embed('content.html.twig') %}
+        {% block body %}
+            <ol class="breadcrumb pull-right">
+                <li>
+                    <a href="{{ path('homepage') }}"><span class="glyphicon glyphicon-home" aria-hidden="true"></span> Inicio</a>
+                </li>
+                <li class="active">{{ singular }}</li>
+            </ol>
+
+            <h1 class="page-header">
+                <span class="text-muted font-weight-light">
+                    <i class="page-header-icon ion-ios-keypad"></i>
+                    Administración / {{ plural }}
+                </span>
+            </h1>
+            <div id="results">
+                {% include ('@App/' ~ url|lower ~ '/content_show.html.twig') %}
+            </div>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
